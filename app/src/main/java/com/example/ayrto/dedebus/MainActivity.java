@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 maps.putExtra("lat",latlng[0]);
                 maps.putExtra("long",latlng[1]);
 
+                Toast.makeText(getApplicationContext(),latlng[0]+"/"+latlng[1],Toast.LENGTH_LONG).show();
 
 
                 startActivity(maps);
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Location location) {
                 if(location != null){
+
                     latlng[0] = location.getLatitude();
                     latlng[1] = location.getLongitude();
 
