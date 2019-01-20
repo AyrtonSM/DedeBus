@@ -24,8 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FusedLocationProviderClient mFusedLocationClient;
-    private double latlng[] = new double[2];
+
 
 
     @Override
@@ -45,51 +44,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        if ( Build.VERSION.SDK_INT >= 23 &&
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
-
-            ActivityCompat.requestPermissions(this,permissions,255);
-
-        }
 
         Button login = findViewById(R.id.button);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent maps = new Intent(getApplicationContext(),MapsActivity.class);
-                maps.putExtra("lat",latlng[0]);
-                maps.putExtra("long",latlng[1]);
-
-                Toast.makeText(getApplicationContext(),latlng[0]+"/"+latlng[1],Toast.LENGTH_LONG).show();
-
-
                 startActivity(maps);
             }
         });
-
-
-
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if(location != null){
-
-                    latlng[0] = location.getLatitude();
-                    latlng[1] = location.getLongitude();
-
-
-                }else{
-                    Toast.makeText(getApplicationContext(),"Not working",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-
 
 
 
